@@ -1,8 +1,8 @@
-import { GetProductRepository, GetProductsRepository, UpdateProductStatusRepository } from "@/data/protocol/db";
+import { GetProductRepository, GetProductsRepository, UpdateProductRepository, UpdateProductStatusRepository } from "@/data/protocol/db";
 import { Product } from "@/domain/model";
 import { ProductEntity } from "../entity";
 
-export class ProductMongoRepository implements GetProductsRepository, GetProductRepository, UpdateProductStatusRepository {
+export class ProductMongoRepository implements GetProductsRepository, GetProductRepository, UpdateProductRepository, UpdateProductStatusRepository {
     async getProducts (page: number): Promise<Product[]> {
         const maxPerPage = 10
         const skipCount = maxPerPage * (page - 1)
@@ -22,5 +22,15 @@ export class ProductMongoRepository implements GetProductsRepository, GetProduct
         }, {
             status: params.status
         })
+    }
+
+    async update (params: UpdateProductRepository.Request): Promise<Product> {
+        await ProductEntity.updateOne({
+            code: params.code,
+        }, {
+            ...params.product,
+            code: params.code
+        })
+        return await this.getProduct(params.code)
     }
 }
