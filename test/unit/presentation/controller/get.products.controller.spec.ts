@@ -19,4 +19,14 @@ describe('GetProductsController', () => {
         
         expect(getProductsSpy.page).toStrictEqual(request.params.page)
     })
+
+    test('should return correct producs on success', async () => {
+        const getProductsSpy = new GetProductsSpy()
+        const sut = new GetProductsController(getProductsSpy)
+        const request = mockRequest()
+        
+        const products = await sut.handle(request)
+        
+        expect(products.body).toStrictEqual(getProductsSpy.result)
+    })
 })
