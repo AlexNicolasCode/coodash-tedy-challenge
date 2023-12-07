@@ -1,13 +1,13 @@
 import { faker } from "@faker-js/faker"
 
-import { DbUpdateProductStatusToTrash } from "@/data/usecase"
 import { UpdateProductStatusRepositorySpy } from "../mock"
 import { throwError } from "test/unit/domain/helper"
+import { DbUpdateProduct } from "@/data/usecase"
 
-describe('DbUpdateProductStatusToTrash', () => {
+describe('DbUpdateProduct', () => {
     test('should call UpdateProductStatusRepositorySpy with correct params', async () => {
         const updateProductStatusRepositorySpy = new UpdateProductStatusRepositorySpy()
-        const sut = new DbUpdateProductStatusToTrash(updateProductStatusRepositorySpy)
+        const sut = new DbUpdateProduct(updateProductStatusRepositorySpy)
         const fakeCode = faker.number.int()
         
         await sut.updateStatusToTrash(fakeCode)
@@ -20,7 +20,7 @@ describe('DbUpdateProductStatusToTrash', () => {
     
     test('should throw if UpdateProductStatusRepositorySpy throws', async () => {
         const updateProductStatusRepositorySpy = new UpdateProductStatusRepositorySpy()
-        const sut = new DbUpdateProductStatusToTrash(updateProductStatusRepositorySpy)
+        const sut = new DbUpdateProduct(updateProductStatusRepositorySpy)
         const fakePage = faker.number.int()
         jest.spyOn(updateProductStatusRepositorySpy, 'updateStatus').mockImplementationOnce(throwError)
         

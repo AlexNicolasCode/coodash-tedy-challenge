@@ -1,7 +1,7 @@
 import { UpdateProductStatusToTrash } from "@/domain/usecase";
 import { UpdateProductStatusRepository } from "../protocol/db";
 
-export class DbUpdateProductStatusToTrash implements UpdateProductStatusToTrash {
+export class DbUpdateProduct implements UpdateProductStatusToTrash {
     constructor (
         private readonly updateProductStatusRepository: UpdateProductStatusRepository
     ) {}
