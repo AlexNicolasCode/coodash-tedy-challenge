@@ -7,7 +7,7 @@ export class DbGetProducts implements GetProducts {
         private readonly getProductsRepository: GetProductsRepository
     ) {}
 
-    async get_products (page: number): Promise<Product[]> {
-        return this.getProductsRepository.get_products(page)
+    async getProducts (page: number): Promise<Product[]> {
+        return this.getProductsRepository.getProducts(page)
     }
 }

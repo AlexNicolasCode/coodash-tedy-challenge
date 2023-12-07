@@ -10,7 +10,7 @@ describe('DbGetProducts', () => {
         const sut = new DbGetProducts(getProductsRepositorySpy)
         const fakePage = faker.number.int()
         
-        await sut.get_products(fakePage)
+        await sut.getProducts(fakePage)
 
         expect(getProductsRepositorySpy.page).toStrictEqual(fakePage)
     })
@@ -19,9 +19,9 @@ describe('DbGetProducts', () => {
         const getProductsRepositorySpy = new GetProductsRepositorySpy()
         const sut = new DbGetProducts(getProductsRepositorySpy)
         const fakePage = faker.number.int()
-        jest.spyOn(getProductsRepositorySpy, 'get_products').mockImplementationOnce(throwError)
+        jest.spyOn(getProductsRepositorySpy, 'getProducts').mockImplementationOnce(throwError)
         
-        const promise = sut.get_products(fakePage)
+        const promise = sut.getProducts(fakePage)
 
         await expect(promise).rejects.toThrow()
     })
@@ -31,7 +31,7 @@ describe('DbGetProducts', () => {
         const sut = new DbGetProducts(getProductsRepositorySpy)
         const fakePage = faker.number.int()
         
-        const products = await sut.get_products(fakePage)
+        const products = await sut.getProducts(fakePage)
 
         expect(products).toBe(getProductsRepositorySpy.result)
     })

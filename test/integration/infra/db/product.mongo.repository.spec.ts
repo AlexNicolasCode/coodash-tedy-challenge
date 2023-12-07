@@ -28,7 +28,7 @@ describe('ProductMongoRepository', () => {
         const sut = new ProductMongoRepository()
         const fakePage = 1
         
-        const products = await sut.get_products(fakePage)
+        const products = await sut.getProducts(fakePage)
 
         expect(products.some((product) => product.code === fakeProduct.code)).toBe(true)
     })
@@ -40,7 +40,7 @@ describe('ProductMongoRepository', () => {
         const fakePage = 1
         const maxProductsPerPage = 10
         
-        const products = await sut.get_products(fakePage)
+        const products = await sut.getProducts(fakePage)
 
         expect(products.length).toBe(maxProductsPerPage)
     })
@@ -50,8 +50,8 @@ describe('ProductMongoRepository', () => {
         await mockProductEntityList(productEntityLenght)
         const sut = new ProductMongoRepository()
         
-        const productsFromFirstQuery = await sut.get_products(1)
-        const productsFromSecondQuery = await sut.get_products(2)
+        const productsFromFirstQuery = await sut.getProducts(1)
+        const productsFromSecondQuery = await sut.getProducts(2)
 
         expect(productsFromFirstQuery.some((product) => productsFromSecondQuery.includes(product))).toBe(false)
     })
@@ -66,7 +66,7 @@ describe('ProductMongoRepository', () => {
             ? (productEntityLenght % maxProductsPerPage)
             : maxProductsPerPage 
         
-        const products = await sut.get_products(fakePage)
+        const products = await sut.getProducts(fakePage)
 
         expect(products.length).toBe(lastPageLenght)
     })
