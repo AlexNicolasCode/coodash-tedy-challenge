@@ -25,4 +25,14 @@ describe('DbGetProducts', () => {
 
         await expect(promise).rejects.toThrow()
     })
+
+    test('should return correct products on success', async () => {
+        const getProductsRepositorySpy = new GetProductsRepositorySpy()
+        const sut = new DbGetProducts(getProductsRepositorySpy)
+        const fakePage = faker.number.int()
+        
+        const products = await sut.get_products(fakePage)
+
+        expect(products).toBe(getProductsRepositorySpy.result)
+    })
 })
