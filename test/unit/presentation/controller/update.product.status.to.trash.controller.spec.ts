@@ -2,7 +2,8 @@ import { faker } from "@faker-js/faker"
 
 import { UpdateProductStatusToTrashController } from "@/presentation/controller"
 import { UpdateProductStatusToTrashSpy } from "../mock"
-import { noContent } from "@/presentation/helper"
+import { noContent, serverError } from "@/presentation/helper"
+import { throwError } from "test/unit/domain/helper"
 
 const mockRequest = (): UpdateProductStatusToTrashController.Request => ({
     params: {
@@ -30,5 +31,16 @@ describe('UpdateProductStatusToTrashController', () => {
         const response = await sut.handle(request)
         
         expect(response).toStrictEqual(noContent())
+    })
+
+    test('should return 500 when UpdateProductStatusToTrashSpy throws', async () => {
+        const updateProductStatusToTrashSpy = new UpdateProductStatusToTrashSpy()
+        const sut = new UpdateProductStatusToTrashController(updateProductStatusToTrashSpy)
+        const request = mockRequest()
+        jest.spyOn(updateProductStatusToTrashSpy, 'updateStatusToTrash').mockImplementationOnce(throwError)
+        
+        const response = await sut.handle(request)
+        
+        expect(response).toStrictEqual(serverError())
     })
 })
