@@ -4,5 +4,8 @@
   "repository": "git@github.com:AlexNicolasCode/coodash-tedy-challenge.git",
   "author": "Alex Nicolas <alexoliveira604@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
 }
