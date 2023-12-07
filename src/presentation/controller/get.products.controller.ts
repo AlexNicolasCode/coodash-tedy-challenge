@@ -11,7 +11,7 @@ export class GetProductsController implements Controller<GetProductsController.R
 
     async handle (request: GetProductsController.Request): Promise<HttpResponse<GetProductsController.Result>> {
         try {
-            const page = request.params.page ?? 0;
+            const page = request.query.page ?? 1;
             const products = await this.getProducts.getProducts(page)
             return ok<Product[]>(products)
         } catch (error) {
@@ -22,7 +22,7 @@ export class GetProductsController implements Controller<GetProductsController.R
 
 export namespace GetProductsController {
     export type Request = {
-        params: {
+        query: {
             page: number
         }
     }
