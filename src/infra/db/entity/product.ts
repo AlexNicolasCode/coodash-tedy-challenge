@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
-    code: { type: String, required: false },
+    code: { type: Number, required: false },
     status: { type: String, required: true },
     imported_t: { type: Date, default: new Date() },
     url: { type: String, required: false },
