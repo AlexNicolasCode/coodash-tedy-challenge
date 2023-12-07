@@ -11,12 +11,22 @@ const mockRequest = (): GetProductController.Request => ({
 
 describe('GetProductController', () => {
     test('should call GetProduct with correct code', async () => {
-        const getProductSpy = new GetProductSpy()
-        const sut = new GetProductController(getProductSpy)
+        const getProductpy = new GetProductSpy()
+        const sut = new GetProductController(getProductpy)
         const request = mockRequest()
         
         await sut.handle(request)
         
-        expect(getProductSpy.code).toStrictEqual(request.params.code)
+        expect(getProductpy.code).toStrictEqual(request.params.code)
+    })
+
+    test('should return correct product on success', async () => {
+        const getProductSpy = new GetProductSpy()
+        const sut = new GetProductController(getProductSpy)
+        const request = mockRequest()
+        
+        const products = await sut.handle(request)
+        
+        expect(products.body).toStrictEqual(getProductSpy.result)
     })
 })
