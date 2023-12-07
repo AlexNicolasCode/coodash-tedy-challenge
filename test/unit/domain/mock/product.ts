@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 
 import { Product } from "@/domain/model"
 
-export const mockProduct = (): Product => ({
+export const mockProduct = (params?: Product): Product => ({
     code: faker.number.int(),
     status: faker.helpers.arrayElement(['draft', 'trash', 'published']),
     imported_t: faker.date.recent(),
@@ -25,7 +25,8 @@ export const mockProduct = (): Product => ({
     nutriscore_score: faker.number.int(),
     nutriscore_grade: faker.string.alphanumeric(),
     main_category: faker.string.alphanumeric(),
-    image_url: faker.internet.url()
+    image_url: faker.internet.url(),
+    ...params,
 })
 
 export const mockProductList = (lenght?: number): Product[] => {
