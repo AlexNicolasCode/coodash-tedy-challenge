@@ -5,6 +5,11 @@ export const ok = <T>(data: T): HttpResponse<T> => ({
     body: data
 })
 
+export const noContent = (): HttpResponse<null>  => ({
+    statusCode: 204,
+    body: null
+})
+
 export const notFound = (): HttpResponse<null>  => ({
     statusCode: 404,
     body: null
