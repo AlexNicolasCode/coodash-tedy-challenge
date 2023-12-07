@@ -118,9 +118,67 @@ describe('ProductMongoRepository', () => {
             }
 
             await sut.update(fakeRequest)
-
+            
             const productFetched = await ProductEntity.findOne({ code: fakeProductEntity.code })    
             expect(productFetched.code).toBe(fakeProductEntity.code)
+        })
+
+        test('should update product on sucess', async () => {
+            const fakeProductEntity = await mockProductEntity()
+            const sut = new ProductMongoRepository()
+            const fakeRequest = {
+                code: fakeProductEntity.code,
+                product: mockProduct()
+            }
+
+            await sut.update(fakeRequest)
+
+            const productFetched = await ProductEntity.findOne({ code: fakeProductEntity.code })    
+            expect({
+                code: productFetched.code,
+                status: productFetched.status,
+                imported_t: productFetched.imported_t,
+                url: productFetched.url,
+                creator: productFetched.creator,
+                product_name: productFetched.product_name,
+                quantity: productFetched.quantity,
+                brands: productFetched.brands,
+                categories: productFetched.categories,
+                labels: productFetched.labels,
+                cities: productFetched.cities,
+                purchase_places: productFetched.purchase_places,
+                stores: productFetched.stores,
+                ingredients_text: productFetched.ingredients_text,
+                traces: productFetched.traces,
+                serving_size: productFetched.serving_size,
+                serving_quantity: productFetched.serving_quantity,
+                nutriscore_score: productFetched.nutriscore_score,
+                nutriscore_grade: productFetched.nutriscore_grade,
+                main_category: productFetched.main_category,
+                image_url: productFetched.image_url,
+            }).toStrictEqual({
+                code: fakeRequest.code,
+                status: fakeRequest.product.status,
+                imported_t: fakeRequest.product.imported_t,
+                url: fakeRequest.product.url,
+                creator: fakeRequest.product.creator,
+                product_name: fakeRequest.product.product_name,
+                quantity: fakeRequest.product.quantity,
+                brands: fakeRequest.product.brands,
+                categories: fakeRequest.product.categories,
+                labels: fakeRequest.product.labels,
+                cities: fakeRequest.product.cities,
+                purchase_places: fakeRequest.product.purchase_places,
+                stores: fakeRequest.product.stores,
+                ingredients_text: fakeRequest.product.ingredients_text,
+                traces: fakeRequest.product.traces,
+                serving_size: fakeRequest.product.serving_size,
+                serving_quantity: fakeRequest.product.serving_quantity,
+                nutriscore_score: fakeRequest.product.nutriscore_score,
+                nutriscore_grade: fakeRequest.product.nutriscore_grade,
+                main_category: fakeRequest.product.main_category,
+                image_url: fakeRequest.product.image_url,
+            })
         })
     })
 })
