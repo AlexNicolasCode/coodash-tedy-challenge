@@ -96,15 +96,31 @@ describe('ProductMongoRepository', () => {
 
     describe('updateStatus', () => {
         test('should update status on success', async () => {
-            const fakeProdct = mockProduct()
-            fakeProdct.status = faker.helpers.arrayElement(['draft', 'published'])
-            const fakeProductEntity = await mockProductEntity(fakeProdct)
+            const fakeProduct = mockProduct()
+            fakeProduct.status = faker.helpers.arrayElement(['draft', 'published'])
+            const fakeProductEntity = await mockProductEntity(fakeProduct)
             const sut = new ProductMongoRepository()
             
             await sut.updateStatus({ code: fakeProductEntity.code, status: 'trash' })
 
-            const productFetched = await ProductEntity.findOne({ code: fakeProdct.code })    
+            const productFetched = await ProductEntity.findOne({ code: fakeProduct.code })    
             expect(productFetched.status).toBe('trash')
+        })
+    })
+
+    describe('update', () => {
+        test('should preserve code when product is updated', async () => {
+            const fakeProductEntity = await mockProductEntity()
+            const sut = new ProductMongoRepository()
+            const fakeRequest = {
+                code: fakeProductEntity.code,
+                product: mockProduct()
+            }
+
+            await sut.update(fakeRequest)
+
+            const productFetched = await ProductEntity.findOne({ code: fakeProductEntity.code })    
+            expect(productFetched.code).toBe(fakeProductEntity.code)
         })
     })
 })
