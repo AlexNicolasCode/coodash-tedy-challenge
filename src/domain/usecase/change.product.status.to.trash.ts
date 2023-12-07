@@ -1,3 +1,3 @@
-export interface ChangeProductStatusToTrash {
-    changeStatusToTrash: (code: number) => Promise<void> 
+export interface UpdateProductStatusToTrash {
+    updateStatusToTrash: (code: number) => Promise<void> 
 }

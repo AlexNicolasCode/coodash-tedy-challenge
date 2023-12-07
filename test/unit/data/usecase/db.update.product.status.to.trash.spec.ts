@@ -10,7 +10,7 @@ describe('DbUpdateProductStatusToTrash', () => {
         const sut = new DbUpdateProductStatusToTrash(updateProductStatusRepositorySpy)
         const fakeCode = faker.number.int()
         
-        await sut.changeStatusToTrash(fakeCode)
+        await sut.updateStatusToTrash(fakeCode)
 
         expect(updateProductStatusRepositorySpy.params).toStrictEqual({
             code: fakeCode,
@@ -24,7 +24,7 @@ describe('DbUpdateProductStatusToTrash', () => {
         const fakePage = faker.number.int()
         jest.spyOn(updateProductStatusRepositorySpy, 'updateStatus').mockImplementationOnce(throwError)
         
-        const promise = sut.changeStatusToTrash(fakePage)
+        const promise = sut.updateStatusToTrash(fakePage)
 
         await expect(promise).rejects.toThrow()
     })
