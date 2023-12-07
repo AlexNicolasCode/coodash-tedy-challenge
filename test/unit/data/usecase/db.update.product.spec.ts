@@ -60,4 +60,19 @@ describe('DbUpdateProduct', () => {
 
         await expect(promise).rejects.toThrow()
     })
+    
+    test('should return correct product on success', async () => {
+        const updateProductRepositorySpy = new UpdateProductRepositorySpy()
+        const updateProductStatusRepositorySpy = new UpdateProductStatusRepositorySpy()
+        const sut = new DbUpdateProduct(updateProductRepositorySpy, updateProductStatusRepositorySpy)
+        const fakeParams = {
+            code: faker.number.int(),
+            product: mockProduct()
+        }
+        updateProductRepositorySpy.result = fakeParams.product
+        
+        const product = await sut.update(fakeParams)
+
+        expect(product).toStrictEqual(fakeParams.product)
+    })
 })
