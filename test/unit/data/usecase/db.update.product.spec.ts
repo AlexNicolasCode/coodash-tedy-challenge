@@ -31,6 +31,20 @@ describe('DbUpdateProduct', () => {
 
         await expect(promise).rejects.toThrow()
     })
+
+    test('should call UpdateProductRepository with correct params', async () => {
+        const updateProductRepositorySpy = new UpdateProductRepositorySpy()
+        const updateProductStatusRepositorySpy = new UpdateProductStatusRepositorySpy()
+        const sut = new DbUpdateProduct(updateProductRepositorySpy, updateProductStatusRepositorySpy)
+        const fakeParams = {
+            code: faker.number.int(),
+            product: mockProduct()
+        }
+        
+        await sut.update(fakeParams)
+
+        expect(updateProductRepositorySpy.params).toStrictEqual(fakeParams)
+    })
     
     test('should throw if UpdateProductRepository throws', async () => {
         const updateProductRepositorySpy = new UpdateProductRepositorySpy()
