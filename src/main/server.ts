@@ -5,6 +5,6 @@ mongoose.connect(env.mongoDbUrl)
   .then(async () => {
     const { setupApp } = await import('@/main/config/app')
     const app = await setupApp()
-    app.listen(env.port, () => console.log(`Server running at http://localhost:${env.port}/graphql`))
+    app.listen(env.port, () => console.log(`Server running at http://localhost:${env.port}/`))
   })
   .catch(console.error)
