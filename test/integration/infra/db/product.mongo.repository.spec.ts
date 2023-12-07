@@ -82,5 +82,14 @@ describe('ProductMongoRepository', () => {
     
             expect(product.code).toBe(fakeProduct.code)
         })
+
+        test('should return null when product not found', async () => {
+            const fakeProductCode = faker.number.int()
+            const sut = new ProductMongoRepository()
+            
+            const product = await sut.getProduct(fakeProductCode)
+    
+            expect(product).toBeNull()
+        })
     })
 })
