@@ -11,7 +11,7 @@ export class GetProductController implements Controller<GetProductController.Req
 
     async handle (request: GetProductController.Request): Promise<HttpResponse<GetProductController.Result>> {
         try {
-            const code = request.params.code;
+            const code = Number(request.params.code);
             const product = await this.getProduct.getProduct(code)
             if (!product) {
                 return notFound()
@@ -26,7 +26,7 @@ export class GetProductController implements Controller<GetProductController.Req
 export namespace GetProductController {
     export type Request = {
         params: {
-            code: number
+            code: string
         }
     }
     export type Result = Product
