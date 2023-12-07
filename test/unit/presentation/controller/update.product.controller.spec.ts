@@ -3,7 +3,8 @@ import { faker } from "@faker-js/faker"
 import { UpdateProductController } from "@/presentation/controller"
 import {UpdateProductSpy } from "../mock"
 import { mockProduct } from "test/unit/domain/mock"
-import { ok } from "@/presentation/helper"
+import { ok, serverError } from "@/presentation/helper"
+import { throwError } from "test/unit/domain/helper"
 
 const mockRequest = (): UpdateProductController.Request => ({
     params: {
@@ -44,5 +45,16 @@ describe('UpdateProductController', () => {
         const response = await sut.handle(request)
         
         expect(response.statusCode).toStrictEqual(ok(updateProductSpy.result).statusCode)
+    })
+
+    test('should return 500 when UpdateProduct throws', async () => {
+        const updateProductSpy = new UpdateProductSpy()
+        const sut = new UpdateProductController(updateProductSpy)
+        const request = mockRequest()
+        jest.spyOn(updateProductSpy, 'update').mockImplementationOnce(throwError)
+        
+        const response = await sut.handle(request)
+        
+        expect(response).toStrictEqual(serverError())
     })
 })
