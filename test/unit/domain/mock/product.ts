@@ -28,9 +28,9 @@ export const mockProduct = (): Product => ({
     image_url: faker.internet.url()
 })
 
-export const mockProductList = (): Product[] => {
+export const mockProductList = (lenght?: number): Product[] => {
     return Array.from(
-        { length: faker.number.int({ min: 0, max: 20 }) },
+        { length: lenght ?? faker.number.int({ min: 0, max: 20 }) },
         () => mockProduct()
     );
 } 
