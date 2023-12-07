@@ -5,6 +5,7 @@ import { MongoMemoryServer } from "mongodb-memory-server"
 import { ProductMongoRepository } from "@/infra/db/mongodb"
 import { mockProductEntity, mockProductEntityList } from "../mock";
 import { ProductEntity } from "@/infra/db/entity";
+import { mockProduct } from "test/unit/domain/mock";
 
 describe('ProductMongoRepository', () => {
     let mongoDb: MongoMemoryServer;
@@ -90,6 +91,20 @@ describe('ProductMongoRepository', () => {
             const product = await sut.getProduct(fakeProductCode)
     
             expect(product).toBeNull()
+        })
+    })
+
+    describe('updateStatus', () => {
+        test('should update status on success', async () => {
+            const fakeProdct = mockProduct()
+            fakeProdct.status = faker.helpers.arrayElement(['draft', 'published'])
+            const fakeProductEntity = await mockProductEntity(fakeProdct)
+            const sut = new ProductMongoRepository()
+            
+            await sut.updateStatus({ code: fakeProductEntity.code, status: 'trash' })
+
+            const productFetched = await ProductEntity.findOne({ code: fakeProdct.code })    
+            expect(productFetched.status).toBe('trash')
         })
     })
 })
