@@ -1,6 +1,8 @@
 import { Schema, model } from 'mongoose'
 
-const schema = new Schema({
+import { Product } from '@/domain/model'
+
+const schema = new Schema<Product>({
     code: { type: Number, required: false },
     status: { type: String, required: true },
     imported_t: { type: Date, default: new Date() },
