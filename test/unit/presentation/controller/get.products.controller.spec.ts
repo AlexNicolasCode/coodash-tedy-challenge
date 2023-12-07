@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker"
 
 import { GetProductsController } from "@/presentation/controller"
 import { GetProductsSpy } from "../mock"
+import { ok } from "@/presentation/helper"
 
 const mockRequest = (): GetProductsController.Request => ({
     params: {
@@ -28,5 +29,15 @@ describe('GetProductsController', () => {
         const products = await sut.handle(request)
         
         expect(products.body).toStrictEqual(getProductsSpy.result)
+    })
+
+    test('should return 200 on success', async () => {
+        const getProductsSpy = new GetProductsSpy()
+        const sut = new GetProductsController(getProductsSpy)
+        const request = mockRequest()
+        
+        const products = await sut.handle(request)
+        
+        expect(products.statusCode).toStrictEqual(ok(request).statusCode)
     })
 })
