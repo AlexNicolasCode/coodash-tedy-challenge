@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 
 import { GetProductController } from "@/presentation/controller"
 import { GetProductSpy } from "../mock"
-import { ok, serverError } from "@/presentation/helper"
+import { notFound, ok, serverError } from "@/presentation/helper"
 import { throwError } from "test/unit/domain/helper"
 
 const mockRequest = (): GetProductController.Request => ({
@@ -40,6 +40,17 @@ describe('GetProductController', () => {
         const products = await sut.handle(request)
         
         expect(products.statusCode).toStrictEqual(ok(getProductSpy.result).statusCode)
+    })
+
+    test('should return 404 when not found product', async () => {
+        const getProductSpy = new GetProductSpy()
+        const sut = new GetProductController(getProductSpy)
+        const request = mockRequest()
+        getProductSpy.result = null
+        
+        const products = await sut.handle(request)
+        
+        expect(products.statusCode).toStrictEqual(notFound().statusCode)
     })
 
     test('should return 500 when GetProduct throws', async () => {
