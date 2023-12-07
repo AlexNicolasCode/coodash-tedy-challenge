@@ -6,6 +6,7 @@ export const adaptRoute = <T, R>(controller: Controller<T, R>) => {
   return async (req: Request, res: Response) => {
     const request = {
         params: req.params || {},
+        query: req.query || {},
         body: req.body || {},
     } as T
     const httpResponse = await controller.handle(request)
