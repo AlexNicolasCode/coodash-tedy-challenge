@@ -7,13 +7,13 @@
       "noUnusedLocals": true,
       "esModuleInterop": true,
       "noImplicitAny": false,
-      "rootDirs": ["src", "tests"],
+      "rootDirs": ["src", "test"],
       "baseUrl": "src",
       "paths": {
-        "tests/*": ["../tests/*"],
+        "test/*": ["../test/*"],
         "@/*": ["*"]
       }
     },
-    "include": ["src", "tests"],
+    "include": ["src", "test"],
     "exclude": ["node_modules"],
   }
