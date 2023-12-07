@@ -31,8 +31,18 @@ describe('UpdateProductController', () => {
         const sut = new UpdateProductController(updateProductSpy)
         const request = mockRequest()
         
-        const product = await sut.handle(request)
+        const response = await sut.handle(request)
         
-        expect(product).toStrictEqual(ok(updateProductSpy.result))
+        expect(response).toStrictEqual(ok(updateProductSpy.result))
+    })
+
+    test('should return 200 on success', async () => {
+        const updateProductSpy = new UpdateProductSpy()
+        const sut = new UpdateProductController(updateProductSpy)
+        const request = mockRequest()
+        
+        const response = await sut.handle(request)
+        
+        expect(response.statusCode).toStrictEqual(ok(updateProductSpy.result).statusCode)
     })
 })
