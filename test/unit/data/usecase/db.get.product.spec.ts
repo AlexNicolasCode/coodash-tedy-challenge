@@ -18,11 +18,21 @@ describe('DbGetProduct', () => {
     test('should throw if GetProductRepositorySpy throws', async () => {
         const getProductRepositorySpy = new GetProductRepositorySpy()
         const sut = new DbGetProduct(getProductRepositorySpy)
-        const fakePage = faker.number.int()
+        const fakeCode = faker.number.int()
         jest.spyOn(getProductRepositorySpy, 'getProduct').mockImplementationOnce(throwError)
         
-        const promise = sut.getProduct(fakePage)
+        const promise = sut.getProduct(fakeCode)
 
         await expect(promise).rejects.toThrow()
+    })
+
+    test('should return correct product on success', async () => {
+        const getProductRepositorySpy = new GetProductRepositorySpy()
+        const sut = new DbGetProduct(getProductRepositorySpy)
+        const fakeCode = faker.number.int()
+        
+        const products = await sut.getProduct(fakeCode)
+
+        expect(products).toBe(getProductRepositorySpy.result)
     })
 })
