@@ -1,0 +1,8 @@
+{
+  "name": "tedy-tech-challenge",
+  "version": "1.0.0",
+  "repository": "git@github.com:AlexNicolasCode/coodash-tedy-challenge.git",
+  "author": "Alex Nicolas <alexoliveira604@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
