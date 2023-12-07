@@ -123,6 +123,64 @@ describe('ProductMongoRepository', () => {
             expect(productFetched.code).toBe(fakeProductEntity.code)
         })
 
+        test('should return correct product on success', async () => {
+            const fakeProductEntity = await mockProductEntity()
+            const sut = new ProductMongoRepository()
+            const fakeRequest = {
+                code: fakeProductEntity.code,
+                product: mockProduct()
+            }
+
+            const product = await sut.update(fakeRequest)
+            
+            const productFetched = await ProductEntity.findOne({ code: fakeProductEntity.code })    
+            expect({
+                code: productFetched.code,
+                status: productFetched.status,
+                imported_t: productFetched.imported_t,
+                url: productFetched.url,
+                creator: productFetched.creator,
+                product_name: productFetched.product_name,
+                quantity: productFetched.quantity,
+                brands: productFetched.brands,
+                categories: productFetched.categories,
+                labels: productFetched.labels,
+                cities: productFetched.cities,
+                purchase_places: productFetched.purchase_places,
+                stores: productFetched.stores,
+                ingredients_text: productFetched.ingredients_text,
+                traces: productFetched.traces,
+                serving_size: productFetched.serving_size,
+                serving_quantity: productFetched.serving_quantity,
+                nutriscore_score: productFetched.nutriscore_score,
+                nutriscore_grade: productFetched.nutriscore_grade,
+                main_category: productFetched.main_category,
+                image_url: productFetched.image_url,
+            }).toStrictEqual({
+                code: product.code,
+                status: product.status,
+                imported_t: product.imported_t,
+                url: product.url,
+                creator: product.creator,
+                product_name: product.product_name,
+                quantity: product.quantity,
+                brands: product.brands,
+                categories: product.categories,
+                labels: product.labels,
+                cities: product.cities,
+                purchase_places: product.purchase_places,
+                stores: product.stores,
+                ingredients_text: product.ingredients_text,
+                traces: product.traces,
+                serving_size: product.serving_size,
+                serving_quantity: product.serving_quantity,
+                nutriscore_score: product.nutriscore_score,
+                nutriscore_grade: product.nutriscore_grade,
+                main_category: product.main_category,
+                image_url: product.image_url,
+            })
+        })
+
         test('should update product on sucess', async () => {
             const fakeProductEntity = await mockProductEntity()
             const sut = new ProductMongoRepository()
