@@ -21,7 +21,7 @@ describe('ProductMongoRepository', () => {
     test('should return correct products on success', async () => {
         const fakeProduct = await mockProductEntity()
         const sut = new ProductMongoRepository()
-        const fakePage = faker.number.int({ max: 9 })
+        const fakePage = 1
         
         const products = await sut.get_products(fakePage)
 
@@ -32,11 +32,22 @@ describe('ProductMongoRepository', () => {
         const productEntityLenght = faker.number.int({ min: 10, max: 20 }) 
         await mockProductEntityList(productEntityLenght)
         const sut = new ProductMongoRepository()
-        const fakePage = faker.number.int({ max: 9 })
+        const fakePage = faker.number.int({ max: 2 })
         const maxProductsPerPage = 10
         
         const products = await sut.get_products(fakePage)
 
         expect(products.length).toBe(maxProductsPerPage)
+    })
+
+    test('should return different products when page selected change', async () => {
+        const productEntityLenght = faker.number.int({ min: 11, max: 19 }) 
+        await mockProductEntityList(productEntityLenght)
+        const sut = new ProductMongoRepository()
+        
+        const productsFromFirstQuery = await sut.get_products(1)
+        const productsFromSecondQuery = await sut.get_products(2)
+
+        expect(productsFromFirstQuery.some((product) => productsFromSecondQuery.includes(product))).toBe(false)
     })
 })
