@@ -7,7 +7,7 @@ import { throwError } from "test/unit/domain/helper"
 
 const mockRequest = (): GetProductController.Request => ({
     params: {
-        code: faker.number.int()
+        code: String(faker.number.int())
     }   
 })
 
@@ -19,7 +19,7 @@ describe('GetProductController', () => {
         
         await sut.handle(request)
         
-        expect(getProductpy.code).toStrictEqual(request.params.code)
+        expect(getProductpy.code).toStrictEqual(Number(request.params.code))
     })
 
     test('should return correct product on success', async () => {
