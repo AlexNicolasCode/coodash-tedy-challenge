@@ -94,4 +94,19 @@ describe('RemoteGetProductSeeds', () => {
 
         await expect(promise).rejects.toThrow()
     })
+
+    test('should correct products on success', async () => {
+        const getFileNamesRepositorySpy = new GetFileNamesRepositorySpy()
+        const getProductsByFileNameRepositorySpy = new GetProductsByFileNameRepositorySpy()
+        const setFileStatusRepositorySpy = new SetFileStatusRepositorySpy()
+        const sut = new RemoteGetProductSeeds(
+            getFileNamesRepositorySpy,
+            getProductsByFileNameRepositorySpy,
+            setFileStatusRepositorySpy
+        )
+        
+        const products = await sut.getSeeds()
+
+        expect(products).toStrictEqual(getProductsByFileNameRepositorySpy.result)
+    })
 })
