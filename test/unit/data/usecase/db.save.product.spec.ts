@@ -24,4 +24,14 @@ describe('DbSaveProduct', () => {
 
         expect(result).toBe(false)
     })
+
+    test('should return true on success', async () => {
+        const bulkSaveProductRepositorySpy = new BulkSaveProductRepositorySpy()
+        const sut = new DbSaveProduct(bulkSaveProductRepositorySpy)
+        const fakeProducts = mockProductList()
+        
+        const result = await sut.bulkSave(fakeProducts)
+
+        expect(result).toBe(true)
+    })
 })
