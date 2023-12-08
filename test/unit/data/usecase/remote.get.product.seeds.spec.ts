@@ -20,6 +20,23 @@ describe('RemoteGetProductSeeds', () => {
         expect(namesCount).toBe(getProductsByFileNameRepositorySpy.count)
     })
 
+    test('should call GetProductsByFileNameRepository with correct name', async () => {
+        const getFileNamesRepositorySpy = new GetFileNamesRepositorySpy()
+        const getProductsByFileNameRepositorySpy = new GetProductsByFileNameRepositorySpy()
+        const setFileStatusRepositorySpy = new SetFileStatusRepositorySpy()
+        getFileNamesRepositorySpy.result = [faker.string.sample()]
+        const sut = new RemoteGetProductSeeds(
+            getFileNamesRepositorySpy,
+            getProductsByFileNameRepositorySpy,
+            setFileStatusRepositorySpy
+        )
+        const firstNameFetched = getFileNamesRepositorySpy.result[0]
+        
+        await sut.getSeeds()
+
+        expect(getProductsByFileNameRepositorySpy.name).toStrictEqual(firstNameFetched)
+    })
+
     test('should call SetFileStatusRepository with correct params when GetProductsByFileNameRepository throws', async () => {
         const getFileNamesRepositorySpy = new GetFileNamesRepositorySpy()
         const getProductsByFileNameRepositorySpy = new GetProductsByFileNameRepositorySpy()
