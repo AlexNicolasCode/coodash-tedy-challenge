@@ -58,6 +58,27 @@ describe('RemoteGetProductSeeds', () => {
         })
     })
     
+
+    test('should call SetFileStatusRepository with correct params on success', async () => {
+        const getFileNamesRepositorySpy = new GetFileNamesRepositorySpy()
+        const getProductsByFileNameRepositorySpy = new GetProductsByFileNameRepositorySpy()
+        const setFileStatusRepositorySpy = new SetFileStatusRepositorySpy()
+        const sut = new RemoteGetProductSeeds(
+            getFileNamesRepositorySpy,
+            getProductsByFileNameRepositorySpy,
+            setFileStatusRepositorySpy
+        )
+        getFileNamesRepositorySpy.result = [faker.string.sample()]
+        const firstNameFetched = getFileNamesRepositorySpy.result[0]
+        
+        await sut.getSeeds()
+
+        expect(setFileStatusRepositorySpy.params).toStrictEqual({
+            name: firstNameFetched,
+            status: 'fetched'
+        })
+    })
+
     test('should throw if GetFileNamesRepository throws', async () => {
         const getFileNamesRepositorySpy = new GetFileNamesRepositorySpy()
         const getProductsByFileNameRepositorySpy = new GetProductsByFileNameRepositorySpy()
