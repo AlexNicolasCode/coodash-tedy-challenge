@@ -16,7 +16,7 @@ export class RemoteGetProductSeeds implements GetProductSeeds {
         for (const name of fileNames) {
             try {
                 const productsByName = await this.getProductsByFileNameRepository.getProductsByFileName(name)
-                products.concat(productsByName)
+                productsByName.forEach((product) => products.push(product))
                 await this.setFileStatusRepository.setFileStatus({
                     name: name,
                     status: 'fetched'
