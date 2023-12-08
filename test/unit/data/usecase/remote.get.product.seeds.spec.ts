@@ -57,4 +57,20 @@ describe('RemoteGetProductSeeds', () => {
             status: 'error'
         })
     })
+    
+    test('should throw if GetFileNamesRepository throws', async () => {
+        const getFileNamesRepositorySpy = new GetFileNamesRepositorySpy()
+        const getProductsByFileNameRepositorySpy = new GetProductsByFileNameRepositorySpy()
+        const setFileStatusRepositorySpy = new SetFileStatusRepositorySpy()
+        const sut = new RemoteGetProductSeeds(
+            getFileNamesRepositorySpy,
+            getProductsByFileNameRepositorySpy,
+            setFileStatusRepositorySpy
+        )
+        jest.spyOn(getFileNamesRepositorySpy, 'getFileNames').mockImplementationOnce(throwError)
+        
+        const promise = sut.getSeeds()
+
+        await expect(promise).rejects.toThrow()
+    })
 })
