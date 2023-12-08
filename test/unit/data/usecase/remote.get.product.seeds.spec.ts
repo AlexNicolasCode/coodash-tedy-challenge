@@ -104,6 +104,7 @@ describe('RemoteGetProductSeeds', () => {
             getProductsByFileNameRepositorySpy,
             setFileStatusRepositorySpy
         )
+        getFileNamesRepositorySpy.result = [faker.string.sample()]
         
         const products = await sut.getSeeds()
 
