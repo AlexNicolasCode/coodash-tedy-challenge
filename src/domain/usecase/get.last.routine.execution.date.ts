@@ -1,3 +1,3 @@
 export interface GetLastRoutineExecutionDate {
-    getLastRoutineExecutionDate: () => Promise<Date>
+    getLastRoutineExecutionDate: () => Promise<Date | undefined>
 }
