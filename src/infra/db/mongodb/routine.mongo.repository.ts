@@ -1,7 +1,7 @@
-import { SetRoutineStatusRepository } from "@/data/protocol/db";
+import { GetLastRoutineExecutionDateRepository, SetRoutineStatusRepository } from "@/data/protocol/db";
 import { RoutineEntity } from "../entity";
 
-export class RoutineMongoRepository implements SetRoutineStatusRepository {
+export class RoutineMongoRepository implements SetRoutineStatusRepository, GetLastRoutineExecutionDateRepository {
     async setStatus (params: SetRoutineStatusRepository.Params): Promise<void> {
         const exists = await RoutineEntity.exists({
             name: params.name
@@ -20,5 +20,10 @@ export class RoutineMongoRepository implements SetRoutineStatusRepository {
             status: params.status,
             last_run: params.date
         })
+    }
+
+    async getLastRoutineExecutionDate (): Promise<Date> {
+        const lastRoutine = await RoutineEntity.findOne({}, {}, { sort: { 'last_run' : -1 } })
+        return lastRoutine.last_run
     }
 }
