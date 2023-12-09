@@ -6,9 +6,10 @@ export class DbRoutineStatus implements SetRoutineStatus {
         private readonly setRoutineStatusRepository: SetRoutineStatusRepository,
     ) {}
 
-    async setStatus (status: SetRoutineStatus.Params): Promise<void> {
+    async setStatus (params: SetRoutineStatus.Params): Promise<void> {
         this.setRoutineStatusRepository.setStatus({
-            status,
+            name: params.name,
+            status: params.status,
             date: new Date()
         })
     }
