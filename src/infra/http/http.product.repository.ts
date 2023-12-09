@@ -46,7 +46,7 @@ export class HttpProductRepository implements GetFileNamesRepository, GetProduct
             const products: Product[] = []
             for await (const line of readline) {
                 products.push(this.convertToProductFormat(line));
-                if (products.length >= 100) {
+                if (products.length === 100) {
                     readline.close()
                     unlink(filePath)
                     unlink(jsonFilePath)
