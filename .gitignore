@@ -3,3 +3,4 @@ dist
 node_modules
 src/main/temp/*.json
 src/main/temp/*.json.gz
+coverage
