@@ -1,3 +1,3 @@
 export interface CheckDatabaseConnection {
-    bulkSave: () => Promise<boolean>
+    checkConnection: () => Promise<boolean>
 }
