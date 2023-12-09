@@ -68,3 +68,6 @@ npm run test:coverage
 
 ## Challenge
 This is a challenge by Coodesh
+
+## Link da apresentação
+https://www.loom.com/share/eca4e47c7d4c46139f3d6cb838070330
