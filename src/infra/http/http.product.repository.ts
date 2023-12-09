@@ -45,13 +45,40 @@ export class HttpProductRepository implements GetFileNamesRepository, GetProduct
             });
             const products: Product[] = []
             for await (const line of readline) {
-                products.push(JSON.parse(line));
+                products.push(this.convertToProductFormat(line));
                 if (products.length >= 100) {
-                    
                     readline.close()
                 }
             }
             return products
+        }
+    }
+
+    convertToProductFormat (line: string): Product {
+        const json = JSON.parse(line)
+        return {
+            code: Number(json.code.replace('"', '')),
+            status: 'draft',
+            url: json.url,
+            creator: json.creator,
+            created_t: json.created_t,
+            last_modified_t: Number(json.last_modified_t),
+            product_name: json.product_name,
+            quantity: json.quantity,
+            brands: json.brands,
+            categories: json.categories,
+            labels: json.labels,
+            cities: json.cities,
+            purchase_places: json.purchase_places,
+            stores: json.stores,
+            ingredients_text: json.ingredients_text,
+            traces: json.traces,
+            serving_size: json.serving_size,
+            serving_quantity: json.serving_quantity,
+            nutriscore_score: json.nutriscore_score,
+            nutriscore_grade: json.nutriscore_grade,
+            main_category: json.main_category,
+            image_url: json.image_url
         }
     }
 }
