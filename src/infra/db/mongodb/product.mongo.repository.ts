@@ -4,7 +4,7 @@ import { ProductEntity } from "../entity";
 
 export class ProductMongoRepository implements GetProductsRepository, GetProductRepository, UpdateProductRepository, UpdateProductStatusRepository {
     async getProducts (page: number): Promise<Product[]> {
-        const maxPerPage = 10
+        const maxPerPage = 100
         const skipCount = maxPerPage * (page - 1)
         return await ProductEntity
             .find()
