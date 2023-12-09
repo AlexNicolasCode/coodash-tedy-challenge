@@ -1,9 +1,10 @@
-import { SetRoutineStatus } from "@/domain/usecase";
-import { SetRoutineStatusRepository } from "../protocol/db";
+import { GetLastRoutineExecutionDate, SetRoutineStatus } from "@/domain/usecase";
+import { GetLastRoutineExecutionDateRepository, SetRoutineStatusRepository } from "../protocol/db";
 
-export class DbRoutineStatus implements SetRoutineStatus {
+export class DbRoutineStatus implements SetRoutineStatus, GetLastRoutineExecutionDate {
     constructor (
         private readonly setRoutineStatusRepository: SetRoutineStatusRepository,
+        private readonly getLastRoutineExecutionDateRepository: GetLastRoutineExecutionDateRepository
     ) {}
 
     async setStatus (params: SetRoutineStatus.Params): Promise<void> {
@@ -12,5 +13,9 @@ export class DbRoutineStatus implements SetRoutineStatus {
             status: params.status,
             date: new Date()
         })
+    }
+
+    async getLastRoutineExecutionDate (): Promise<Date> {
+        return this.getLastRoutineExecutionDateRepository.getLastRoutineExecutionDate();
     }
 }
