@@ -35,12 +35,12 @@ describe('ProductMongoRepository', () => {
             expect(products.some((product) => product.code === fakeProduct.code)).toBe(true)
         })
     
-        test('should return only 10 products by request', async () => {
-            const productEntityLenght = faker.number.int({ min: 10, max: 20 }) 
+        test('should return only 100 products by request', async () => {
+            const productEntityLenght = faker.number.int({ min: 101, max: 200 }) 
             await mockProductEntityList(productEntityLenght)
             const sut = new ProductMongoRepository()
             const fakePage = 1
-            const maxProductsPerPage = 10
+            const maxProductsPerPage = 100
             
             const products = await sut.getProducts(fakePage)
     
@@ -62,7 +62,7 @@ describe('ProductMongoRepository', () => {
             const productEntityLenght = faker.number.int({ min: 11, max: 100 }) 
             await mockProductEntityList(productEntityLenght)
             const sut = new ProductMongoRepository()
-            const maxProductsPerPage = 10
+            const maxProductsPerPage = 100
             const fakePage = Math.ceil(productEntityLenght / maxProductsPerPage)
             const lastPageLenght = (productEntityLenght % maxProductsPerPage) !== 0 
                 ? (productEntityLenght % maxProductsPerPage)
