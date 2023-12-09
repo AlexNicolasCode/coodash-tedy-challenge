@@ -5,6 +5,6 @@ export interface SetRoutineStatus {
 export namespace SetRoutineStatus {
     export type Params = {
         name: string
-        status: 'running' | 'done'
+        status: 'running' | 'done' | 'error'
     }
 }

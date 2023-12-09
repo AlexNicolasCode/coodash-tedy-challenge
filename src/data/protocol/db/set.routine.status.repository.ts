@@ -5,7 +5,7 @@ export interface SetRoutineStatusRepository {
 export namespace SetRoutineStatusRepository {
     export type Params = {
         name: string
-        status: 'running' | 'done'
+        status: 'running' | 'done' | 'error'
         date: Date
     }
 }
