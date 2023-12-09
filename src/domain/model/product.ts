@@ -1,7 +1,7 @@
 export type Product = {
     code?: number,
     status: 'draft' | 'trash' | 'published',
-    imported_t: Date,
+    imported_t?: Date,
     url?: string,
     creator?: string,
     created_t?: number,
