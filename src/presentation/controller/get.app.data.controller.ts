@@ -20,7 +20,7 @@ export class GetAppDataController implements Controller<GetAppDataController.Req
                 databaseConnection,
                 upTimeSeconds: upTime,
                 memoryUsage: memoryUsage,
-                lastCronExecution: lastCronExecution
+                lastCronExecution: lastCronExecution ?? 'never'
             })          
         } catch (error) {
             return serverError()
@@ -34,6 +34,6 @@ export namespace GetAppDataController {
         databaseConnection: 'connected' | 'disconnected'
         upTimeSeconds: number
         memoryUsage: number
-        lastCronExecution: Date
+        lastCronExecution: Date | 'never'
     }
 }
