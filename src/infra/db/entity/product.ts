@@ -3,7 +3,7 @@ import { Schema, model } from 'mongoose'
 import { Product } from '@/domain/model'
 
 const schema = new Schema<Product>({
-    code: { type: Number, required: false },
+    code: { type: Number, unique: true },
     status: { type: String, required: true },
     imported_t: { type: Date, default: new Date() },
     url: { type: String, required: false },
