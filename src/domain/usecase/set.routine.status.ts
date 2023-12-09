@@ -1,7 +1,10 @@
 export interface SetRoutineStatus {
-    setStatus: (status: SetRoutineStatus.Params) => Promise<void> 
+    setStatus: (params: SetRoutineStatus.Params) => Promise<void> 
 }
 
 export namespace SetRoutineStatus {
-    export type Params = 'running' | 'done'
+    export type Params = {
+        name: string
+        status: 'running' | 'done'
+    }
 }
