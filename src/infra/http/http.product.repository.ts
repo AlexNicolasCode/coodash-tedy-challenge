@@ -48,6 +48,7 @@ export class HttpProductRepository implements GetFileNamesRepository, GetProduct
                 products.push(this.convertToProductFormat(line));
                 if (products.length >= 100) {
                     readline.close()
+                    break
                 }
             }
             return products
