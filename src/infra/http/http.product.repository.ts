@@ -1,6 +1,6 @@
 import path from 'path'
 import { existsSync, createReadStream, createWriteStream } from 'node:fs'
-import { writeFile } from 'node:fs/promises'
+import { writeFile, unlink } from 'node:fs/promises'
 import { createInterface } from 'readline/promises'
 import { createGunzip } from 'zlib'
 import { pipeline } from 'node:stream/promises'
@@ -48,6 +48,8 @@ export class HttpProductRepository implements GetFileNamesRepository, GetProduct
                 products.push(this.convertToProductFormat(line));
                 if (products.length >= 100) {
                     readline.close()
+                    unlink(filePath)
+                    unlink(jsonFilePath)
                     break
                 }
             }
